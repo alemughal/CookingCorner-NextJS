@@ -1,6 +1,7 @@
 import { createClient } from "contentful";
 import Image from "next/image";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import Skelton from "@/components/Skelton";
 
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID,
@@ -20,7 +21,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 }
 
@@ -37,7 +38,9 @@ export async function getStaticProps({ params }) {
 }
 
 export default function RecipeDetails({ recipe }) {
-  const { featuredImage, title, cookingTIme, ingredients, method } = recipe.fields;
+  if (!recipe) return <div>Loading..</div>;
+  const { featuredImage, title, cookingTIme, ingredients, method } =
+    recipe.fields;
   return (
     <div>
       <div className="banner">
@@ -52,7 +55,7 @@ export default function RecipeDetails({ recipe }) {
 
       <div className="info">
         <p>Takes approx {cookingTIme} mins to make</p>
-        <h3>Ingredients: {ingredients}</h3>
+        <h3>Ingredients:</h3>
 
         {ingredients.map((ing) => (
           <span key={ing}>{ing}</span>
@@ -69,6 +72,7 @@ export default function RecipeDetails({ recipe }) {
         h3 {
           text-transform: uppercase;
         }
+
         .banner h2 {
           margin: 0;
           background: #fff;
@@ -80,14 +84,35 @@ export default function RecipeDetails({ recipe }) {
           transform: rotateZ(-1deg);
           box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
         }
+
         .info p {
           margin: 0;
         }
+
         .info span::after {
           content: ", ";
         }
+
         .info span:last-child::after {
           content: ".";
+        }
+
+        /* Responsive styles */
+        @media screen and (max-width: 768px) {
+          .banner h2 {
+            padding: 10px;
+            top: -30px;
+            left: -5px;
+            transform: rotateZ(0deg);
+          }
+
+          .info span::after {
+            content: "";
+          }
+
+          .info span:last-child::after {
+            content: "";
+          }
         }
       `}</style>
     </div>
