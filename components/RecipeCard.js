@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 
 export default function RecipeCard({ recipe }) {
-  const { title, slug, cookingTime, thumbnail } = recipe.fields;
+  const { title, slug, cookingTIme, thumbnail } = recipe.fields;
   return (
     <div className="card">
       <div className="featured">
@@ -18,7 +18,7 @@ export default function RecipeCard({ recipe }) {
       <div className="content">
         <div className="info">
           <h4>{title}</h4>
-          <p>Takes approx {cookingTime} mins to make</p>
+          <p>Takes approx {cookingTIme} mins to make</p>
         </div>
         <div className="actions">
           <Link href={"/recipes/" + slug} className="a"> <button> Cook this </button></Link>

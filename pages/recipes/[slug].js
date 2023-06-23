@@ -37,11 +37,12 @@ export async function getStaticProps({ params }) {
 }
 
 export default function RecipeDetails({ recipe }) {
-  const { featuredImage, title, cookingTime, ingredients, method } = recipe.fields;
+  const { featuredImage, title, cookingTIme, ingredients, method } = recipe.fields;
   return (
     <div>
       <div className="banner">
         <Image
+          priority={true}
           src={`https:${featuredImage.fields.file.url}`}
           width={featuredImage.fields.file.details.image.width}
           height={featuredImage.fields.file.details.image.height}
@@ -50,7 +51,7 @@ export default function RecipeDetails({ recipe }) {
       </div>
 
       <div className="info">
-        <p>Takes approx {cookingTime} mins to make</p>
+        <p>Takes approx {cookingTIme} mins to make</p>
         <h3>Ingredients: {ingredients}</h3>
 
         {ingredients.map((ing) => (
