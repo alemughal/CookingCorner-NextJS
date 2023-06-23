@@ -38,7 +38,7 @@ export async function getStaticProps({ params }) {
 }
 
 export default function RecipeDetails({ recipe }) {
-  if (!recipe) return <div>Loading..</div>;
+  if (!recipe) return <Skelton/>;
   const { featuredImage, title, cookingTIme, ingredients, method } =
     recipe.fields;
   return (
